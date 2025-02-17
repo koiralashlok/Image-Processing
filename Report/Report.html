@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<title>Image Processing Techniques</title>
+
+</head> <body>
+
+<p><b>Author: Shlok Mahesh Koirala</b></p>
+<p>Date: 29th January, 2023</p>
+
+<h4>1: Take two photographs</h4>
+<img src="Images/HP.png" alt="HP" width="300" height="300">
+<img src="Images/LP.png" alt="LP" width="300" height="300">
+
+
+<h4>2: Compute frequency representations</h4>
+<img src="Images/HP-freq.png" alt="HP-freq" width="300" height="300">
+<img src="Images/LP-freq.png" alt="LP-freq" width="300" height="300">
+
+<h4>3: Visualize kernels</h4>
+<img src="Images/gaus-surf.png" alt="gaus-surf" width="300" height="300">
+<img src="Images/dog-surf.png" alt="dog-surf" width="300" height="300">
+<p>Left: Gaussian Kernel; Right: Derivative of Gaussian Kernel (DoG)</p>
+<br><br>
+<img src="Images/HP-filt.png" alt="HP-filt" width="300" height="300">
+<img src="Images/HP-filt-freq.png" alt="HP-filt-freq" width="300" height="300">
+<br><br>
+<img src="Images/LP-filt.png" alt="LP-filt" width="300" height="300">
+<img src="Images/LP-filt-freq.png" alt="LP-filt-freq" width="300" height="300">
+<br><br>
+<img src="Images/HP-dogfilt.png" alt="HP-dogfilt" width="300" height="300">
+<img src="Images/HP-dogfilt-freq.png" alt="HP-dogfilt-freq" width="300" height="300">
+<br><br>
+<img src="Images/LP-dogfilt.png" alt="LP-dogfilt" width="300" height="300">
+<img src="Images/LP-dogfilt-freq.png" alt="LP-dogfilt-freq" width="300" height="300">
+<h4>4: Anti-aliasing</h4>
+<img src="Images/HP-sub2.png" alt="HP-sub2" width="300" height="300">
+<img src="Images/HP-sub2-freq.png" alt="HP-sub2-freq" width="300" height="300">
+<br><br>
+<img src="Images/LP-sub2.png" alt="LP-sub2" width="300" height="300">
+<img src="Images/LP-sub2-freq.png" alt="LP-sub2-freq" width="300" height="300">
+<p> In the spatial high pass image, pronounced alaiasing occurs on the right zebra's forehead and nose, and in the center where the left (viewer's left) zebra's leg bulge is. In general there is aliasing along the zebra's stripes since there aren't enough pixels to hold this information
+    In the frequency domain high pass image, the high frequency components away from the centre are corrupted since the frequency signals overlap with each other and the resultant wave has a higher amplitude than the original signal (hence more bright spots/ relatively higher frequencies away from center compared to the orignal frequency representation)
+</p></p>
+    The low pass image remains almost the same with some aliasing around the sunglasses and the lower rocks
+    Similar results can be seen in the frequency domain of this image where it looks similar to the frequency domain representation of the original image as the bright segments remain concentrated around the center
+</p>
+
+<img src="Images/HP-sub4.png" alt="HP-sub4" width="300" height="300">
+<img src="Images/HP-sub4-freq.png" alt="HP-sub4-freq" width="300" height="300">
+<br><br>
+<img src="Images/LP-sub4.png" alt="LP-sub4" width="300" height="300">
+<img src="Images/LP-sub4-freq.png" alt="LP-sub4-freq" width="300" height="300">
+<p> Heavy aliasing can be observed at almost every stripe boundary in the high pass image.
+    The frequency representation shows similar results since almost all the high frequency components are corrupted as compared to the original frequency represnetation owing to the same reason as before. Only the birghtness (high frequencies) around the center cluster are properly preserved</p>
+<p><p>
+    Some aliasing can also be observed in the low pass image this time although not as much as the high pass image.
+    The frequency represnetation tells a similar story wherein it looks fairly similar to the orignal frequency domain illustration but a bit more noisy away from the center (due to the same overlapping!)
+</p>
+
+</p>
+<img src="Images/HP-sub2-aa.png" alt="HP-sub2-aa" width="300" height="300">
+<img src="Images/HP-sub2-aa-freq.png" alt="HP-sub2-aa-freq" width="300" height="300">
+<br><br>
+<img src="Images/HP-sub4-aa.png" alt="HP-sub4-aa" width="300" height="300">
+<img src="Images/HP-sub4-aa-freq.png" alt="HP-sub4-aa-freq" width="300" height="300">
+<p> The half size subsampled image used a Gaussian filter with standard deviation 0.75 while the quarter subsampled image used standard deviation of 1.25. Both were filtered using a Gaussian filter of size 17
+</p><p>
+    In the anti-aliased half subsampled image edges (high frequency components) are much smoother compared to the non anti-aliased version which has jagged edges. The low frequency components remain the same since they are mostly unaffected by the low-pass Gaussian filter. Overall the ant-aliased image is much better
+    The quarter subsampled image shows similar results with smoother high frequency components (edges) thanks to our Gaussian filter and mostly unchanged low frequency components. However, this image is much smaller than the original and does not store much information and does not look as good but far better than the non anti-aliased one.
+</p>
+
+<h4>5: Canny edge detection thresholding</h4>
+
+<img src="Images/HP-canny-optimal.png" alt="HP-canny-optimal" width="500" height="500">
+<br><br>
+<img src="Images/HP-canny-lowlow.png" alt=" HP-canny-lowlow" width="300" height="300">
+<img src="Images/HP-canny-highlow.png" alt=" HP-canny-highlow" width="300" height="300">
+<br><br>
+<img src="Images/HP-canny-lowhigh.png" alt=" HP-canny-lowhigh" width="300" height="300">
+<img src="Images/HP-canny-highhigh.png" alt=" HP-canny-highhigh" width="300" height="300">
+<p> The high-high (bottom right) image is missing edges for both nostrils of the right zebra and does not depect the accurate shape. Moreover, it is missing an edge for the right ear of the zebra in the back which deviates from the real image.
+    The low-high (bottom left) image has more noise (unwanted edges) in the white stripes (corresponding to the grey patches in the real image) and in the left eye of the left zebra, not present in the optimal result. 
+</p></p>
+    The high-low (top right) image is missing edges in the bottom center between the 2 foreground zebras and inside the background zebra's right ear.
+    The low-low (top left) image has noise around the right corner of the background horse that merges into the right forground horse's ear which is completely inaccurate.
+</p>
+
+<img src="Images/LP-canny-optimal.png" alt="LP-canny-optimal" width="500" height="500">
+<br><br>
+<img src="Images/LP-canny-lowlow.png" alt=" LP-canny-lowlow" width="300" height="300">
+<img src="Images/LP-canny-highlow.png" alt=" LP-canny-highlow" width="300" height="300">
+<br><br>
+<img src="Images/LP-canny-lowhigh.png" alt=" LP-canny-lowhigh" width="300" height="300">
+<img src="Images/LP-canny-highhigh.png" alt=" LP-canny-highhigh" width="300" height="300">
+<p>The high-high image (bottom right) is missing creases in the lower part of the T-shirt and has missing edges in the snow patches in the background mountain (for example the one in the top left and over the left shoukder) present in the optimal image.
+    The low-high image (bottom left) has some noise (unwanted edges) in the lens of the glares and also after the "R" under the logo in the center of the T-shirt as opposed to the optimal image.
+</p></p>
+    The high-low image (top right) is similar to the optimal image but has some missing edges for snow patches like the on in the top left corner. Moreover, it is missing some edges for the neck bone and detail of the bottom right jaw present in the optimal image.
+    The low-low image (top left) has noise after the "R" under the main logo on the T-shirt unlike the optimal image.
+</p>
+
+
+</body> </html>
